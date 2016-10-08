@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="LayoutPadraoPesquisa">
+	<head>
+		<title>Pesquisa de Tarefas</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div layout:include="MensagemGeral"></div>
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title blas-titulo-panel">Pesquisa de Tarefas</h1>
+					<a class="btn btn-link blas-link-panel" th:href="@{/tarefas/nova}">Nova Tarefa</a>
+				</div>
+			</div>
+	
+			<div class="panel-body">
+				
+				<div class="form-group">
+					<form method="GET" class="form-horizontal" th:action="@{/tarefas}" th:object="${filtro}">	   			
+			   			<div class="row">
+			   				<div class="col-sm-4">
+			   					<div class="input-group">
+			   						<input class="form-control" placeholder="Qual Tarefa você está procurando?"	autofocus="autofocus" th:field="*{nome}" />
+			   						<span class="input-group-btn">
+			   							<button type="submit" class="btn btn-default">
+			   								<i class="glyphicon glyphicon-search"></i>
+			   							</button>
+			   						</span>
+			   					</div>
+			   				</div>  
+			   				
+			   				<div class="col-sm-7"></div>
+			   				
+			   				<div class="col-sm-1" th:if="${tarefas.getTotalPages() > 0}">	   					   					
+								<select id="pageSizeSelect" class="form-control">
+									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}"></option>
+								</select>								
+							</div>					
+			   			</div>		   		
+			   		</form> 
+		   	   	</div>
+		   	   			
+   	   			<div class="table-responsive">
+					<table class="table table-bordered table-striped"> 
+						<thead>
+							<tr>
+								<th class="text-center col-md-1">#</th>
+								<th>Nome</th>
+								<th class="col-md-1 text-center">Data</th>
+								<th class="col-md-2">Categoria</th>
+								<th class="col-md-2 text-center">Prioridade</th>
+								<th class="col-md-1 text-center">Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="tarefa : ${tarefas}">
+								<td class="text-center" th:text="${tarefa.id}" />
+			
+								<td th:if="${tarefa.dataConclusao == null}" th:text="${tarefa.nome}" th:attr="data-role=${tarefa.id}"  />
+								<td th:if="${tarefa.dataConclusao != null}" th:text="${tarefa.nomeTarefaComDataConclusao}" class="tarefa-concluida" />
+							
+								<td class="text-center" th:text="${{tarefa.dataCadastro}}" />
+								
+								<td th:text="${tarefa.categoria.descricao}" />
+			
+								<td class="text-center">
+									<span class="label" th:text="${tarefa.prioridade.descricao}" th:classappend="${tarefa.estiloCssPrioridade}"></span>
+								</td>
+			
+								<td class="text-center">
+									<a class="btn btn-link btn-xs" th:href="@{/tarefas/{id}(id=${tarefa.id})}" title="Editar" rel="tooltip" data-placement="top"> 
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a>
+									
+									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#dialogoExclusaoTarefa"
+										th:attr="data-id=${tarefa.id}, data-descricao=${tarefa.nome}" title="Excluir" rel="tooltip" data-placement="top"> 
+										<span class="glyphicon glyphicon-remove"></span>
+									</a>
+																
+									<a class="btn btn-link btn-xs js-concluir-tarefa" th:if="${tarefa.dataConclusao == null}"
+				   								title="Concluir Tarefa" rel="tooltip" data-placement="top"
+				   								th:attr="data-id=${tarefa.id}"
+				   								th:href="@{/tarefas/{id}/concluir(id=${tarefa.id})}">
+			   							<span class="glyphicon glyphicon-check"></span>
+				   					</a>
+								</td>
+							</tr>
+			
+							<tr>
+								<td colspan="6" th:if="${tarefas.getTotalPages() == 0}">Nenhuma tarefa encontrada!</td>
+							</tr>				
+						</tbody>
+					</table>
+				</div>
+				
+				<div align="center" class="row" th:if="${tarefas.getTotalPages() > 0}">								
+					<div th:if="${tarefas.getTotalPages() != 1}" class="form-group col-md-11 pagination-centered">
+						<ul class="pagination">
+							<li th:class="${tarefas.getNumber() == 0} ? disabled">
+								<a class="pageLink" title="Primeira página" rel="tooltip" th:href="@{/tarefas(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+							</li>
+							
+							<li th:class="${tarefas.getNumber() == 0} ? disabled">
+								<a class="pageLink" th:href="@{/tarefas(pageSize=${selectedPageSize}, page=${tarefas.getNumber()})}">Anterior</a>
+							</li>
+								
+							<li th:class="${tarefas.getNumber() == (page - 1)} ? 'active pointer-disabled'" th:each="page : ${#numbers.sequence(paginator.getStartPage(), paginator.getEndPage())}">
+								<a class="pageLink" th:href="@{/tarefas(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+							</li>
+							
+							<li th:class="${tarefas.getNumber() + 1 == tarefas.getTotalPages()} ? disabled">
+								<a class="pageLink" th:href="@{/tarefas(pageSize=${selectedPageSize}, page=${tarefas.getNumber() + 2})}">Próxima</a>
+							</li>
+							
+							<li th:class="${tarefas.getNumber() + 1 == tarefas.getTotalPages()} ? disabled">
+								<a class="pageLink" title="Última página" rel="tooltip" th:href="@{/tarefas(pageSize=${selectedPageSize},page=${tarefas.getTotalPages()})}">&raquo;</a>
+							</li>
+						</ul>
+					</div>				
+				</div>		
+			</div>
+					
+			<div layout:include="/tarefas/DialogoExclusaoTarefa"></div>
+			
+		</div>
+	</section>	
+	
+	<section layout:fragment="scripts">
+		<script th:src="@{/js/tarefa/dialogo-exclusao.js}"></script>
+		
+		<script th:src="@{/js/tarefa/pesquisa-util.js}"></script>		
+	</section>
+
+</html>

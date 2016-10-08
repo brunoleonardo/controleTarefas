@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="LayoutPadraoPesquisa">
+	<head>
+		<title>Pesquisa de Categorias</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div layout:include="MensagemGeral"></div>
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title blas-titulo-panel">Pesquisa de Categorias</h1>
+					<a class="btn btn-link blas-link-panel" th:href="@{/categorias/nova}">Nova Categoria</a>
+				</div>
+			</div>
+	
+			<div class="panel-body">
+				
+				<div class="form-group">
+					<form method="GET" class="form-horizontal" th:action="@{/categorias}" th:object="${filtro}">	   			
+			   			<div class="row">
+			   				<div class="col-sm-4">
+			   					<div class="input-group">
+			   						<input class="form-control" placeholder="Qual Categoria você está procurando?"	autofocus="autofocus" th:field="*{descricao}" />
+			   						<span class="input-group-btn">
+			   							<button type="submit" class="btn btn-default">
+			   								<i class="glyphicon glyphicon-search"></i>
+			   							</button>
+			   						</span>
+			   					</div>
+			   				</div>  
+			   				
+			   				<div class="col-sm-7"></div>
+			   				
+			   				<div class="col-sm-1" th:if="${categorias.getTotalPages() > 0}">	   					   					
+								<select id="pageSizeSelect" class="form-control">
+									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}"></option>
+								</select>								
+							</div>					
+			   			</div>		   		
+			   		</form> 
+		   	   	</div>
+		   	   			
+   	   			<div class="table-responsive">
+					<table class="table table-bordered table-striped"> 
+						<thead>
+							<tr>
+								<th class="text-center col-md-1">#</th>
+								<th>Descrição</th>
+								<th class="col-md-1 text-center">Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="categoria : ${categorias}">
+								<td class="text-center" th:text="${categoria.id}" />
+									
+								<td th:text="${categoria.descricao}" />
+						
+								<td class="text-center">
+									<a class="btn btn-link btn-xs" th:href="@{/categorias/{id}(id=${categoria.id})}" title="Editar" rel="tooltip" data-placement="top"> 
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a>
+									
+									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#dialogoExclusaoCategoria"
+										th:attr="data-id=${categoria.id}, data-descricao=${categoria.descricao}" title="Excluir" rel="tooltip" data-placement="top"> 
+										<span class="glyphicon glyphicon-remove"></span>
+									</a>									
+								</td>
+							</tr>
+			
+							<tr>
+								<td colspan="6" th:if="${categorias.getTotalPages() == 0}">Nenhuma categoria encontrada!</td>
+							</tr>				
+						</tbody>
+					</table>
+				</div>
+				
+				<div align="center" class="row" th:if="${categorias.getTotalPages() > 0}">								
+					<div th:if="${categorias.getTotalPages() != 1}" class="form-group col-md-11 pagination-centered">
+						<ul class="pagination">
+							<li th:class="${categorias.getNumber() == 0} ? disabled">
+								<a class="pageLink" title="Primeira página" rel="tooltip" th:href="@{/categorias(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+							</li>
+							
+							<li th:class="${categorias.getNumber() == 0} ? disabled">
+								<a class="pageLink" th:href="@{/categorias(pageSize=${selectedPageSize}, page=${categorias.getNumber()})}">Anterior</a>
+							</li>
+								
+							<li th:class="${categorias.getNumber() == (page - 1)} ? 'active pointer-disabled'" th:each="page : ${#numbers.sequence(paginator.getStartPage(), paginator.getEndPage())}">
+								<a class="pageLink" th:href="@{/categorias(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+							</li>
+							
+							<li th:class="${categorias.getNumber() + 1 == categorias.getTotalPages()} ? disabled">
+								<a class="pageLink" th:href="@{/categorias(pageSize=${selectedPageSize}, page=${categorias.getNumber() + 2})}">Próxima</a>
+							</li>
+							
+							<li th:class="${categorias.getNumber() + 1 == categorias.getTotalPages()} ? disabled">
+								<a class="pageLink" title="Última página" rel="tooltip" th:href="@{/categorias(pageSize=${selectedPageSize},page=${categorias.getTotalPages()})}">&raquo;</a>
+							</li>
+						</ul>
+					</div>				
+				</div>		
+			</div>
+					
+			<div layout:include="/categorias/DialogoExclusaoCategoria"></div>
+			
+		</div>
+	</section>	
+	
+	<section layout:fragment="scripts">
+		<script th:src="@{/js/categoria/dialogo-exclusao.js}"></script>
+		
+		<script th:src="@{/js/categoria/pesquisa-util.js}"></script>		
+	</section>
+
+</html>

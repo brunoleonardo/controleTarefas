@@ -1,0 +1,40 @@
+/* Tela grande */
+@media (min-width: 768px) {
+	.panel-default {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.alert {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+
+.panel-title {
+	font-weight: bold;
+}
+
+.navbar-brand {
+	padding-top: 15px;
+}
+
+.blas-link-panel {
+	float: right;
+	padding: 0px;
+	font-weight: bold;
+}
+
+.blas-link {
+	font-weight: bold;	
+}
+
+.blas-titulo-panel {
+	float: left;
+	padding-top: 2px;
+}
+
+.tarefa-concluida {
+	text-decoration: line-through;
+	font-color: gray;
+}
