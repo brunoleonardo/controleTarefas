@@ -1,6 +1,6 @@
 # controleTarefas
 
-Projeto de exemplo baseado no Framework Spring Boot. Foram utilizados também os seguintes frameworks:
+Projeto de exemplo que implementa um CRUD baseado no Framework Spring Boot. Foram utilizados também os seguintes frameworks:
 
 - Spring MVC
 
@@ -27,3 +27,4 @@ Crie um novo esquena no MySQL chamado "controle_tarefas" e altere as credenciais
 # Acesso
 
 Execute o projeto e acesse http://localhost:8080/
+
