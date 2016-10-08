@@ -26,9 +26,10 @@ Projeto criado com o Maven, bastando assim importá-lo em sua IDE e construí-lo
 
 # Configuração do Banco de Dados
 
-Crie um novo esquena no MySQL chamado "controle_tarefas" e altere as credenciais de acesso ao banco de dados no arquivo "/resources/application.properties".
+Crie um novo esquena no MySQL chamado **controle_tarefas** e altere as credenciais de acesso ao banco de dados no arquivo **application.properties**.
 
 # Acesso
 
-Execute o projeto e acesse http://localhost:8080/
+Execute o projeto e acesse [http://localhost:8080/](http://localhost:8080/)
+ 
 
