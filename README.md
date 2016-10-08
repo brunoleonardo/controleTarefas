@@ -12,6 +12,8 @@ Projeto de exemplo que implementa um CRUD baseado no Framework Spring Boot. Fora
 
 - Thymeleaf 
 
+- Bootstrap
+
 - JQuery (com Ajax)
 
 - Cache 
