@@ -8,6 +8,8 @@ Projeto de exemplo que implementa um CRUD baseado no Framework Spring Boot. Fora
 
 - Spring Test
 
+- Bean Validation
+
 - Thymeleaf 
 
 - JQuery (com Ajax)
