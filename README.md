@@ -32,7 +32,7 @@ Crie um novo esquena no MySQL chamado **controle_tarefas** e altere as credencia
 
 Execute o projeto e acesse [http://localhost:8080/](http://localhost:8080/). Você será redirecionado para a tela principal:
 
-![TelaPrincipal](https://github.com/brunoleonardo/controleTarefas/TelaPrincipal.png)
+![TelaPrincipal](https://github.com/brunoleonardo/controleTarefas/blob/master/TelaPrincipal.png)
 
  
 
