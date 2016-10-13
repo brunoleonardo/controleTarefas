@@ -57,12 +57,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
 		<!-- HSQL será o BD de Teste -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
