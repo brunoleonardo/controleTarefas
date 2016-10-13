@@ -4,7 +4,7 @@ Projeto de exemplo que implementa um CRUD baseado no Framework Spring Boot. Fora
 
 - Spring MVC
 
-- Spring Data (Hibernate e MySQL)
+- Spring Data (Cache)
 
 - Spring Test
 
@@ -16,9 +16,7 @@ Projeto de exemplo que implementa um CRUD baseado no Framework Spring Boot. Fora
 
 - JQuery (com Ajax)
 
-- Cache 
-
-- Log4J,  entre outras.
+- Log4J
 
 # Instalação
 
