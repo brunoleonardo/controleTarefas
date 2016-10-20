@@ -16,7 +16,7 @@ Projeto de exemplo que implementa um CRUD baseado no Framework Spring Boot. Fora
 
 - JQuery (com Ajax)
 
-- Log4J
+- Log (Apache Log)
 
 # Instalação
 
