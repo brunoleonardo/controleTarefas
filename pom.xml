@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<name>controleTarefas</name>
-	<description>Projeto de exemplo para uso  das tecnologias Spring Boot, Spring MVC, Spring Data (Cache), Spring Test, Bootstrap, Thymeleaf, JQuery com Ajax, Log4J, entre outras.</description>
+	<description>Projeto de exemplo para uso  das tecnologias Spring Boot, Spring MVC, Spring Data (Cache), Spring Test, Bootstrap, Thymeleaf, JQuery com Ajax, Apache Commons Logging, entre outras.</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
